@@ -28,3 +28,4 @@ deploy:
   app: "ebdjango"
   env: "django-env"
   bucket_name: "elasticbeanstalk-us-west-2-883450714509"
+  debug: true
