@@ -17,6 +17,7 @@ after_success:
   else
     branch=$TRAVIS_PULL_REQUEST_BRANCH
   fi
+  git checkout -B $branch
   export COVERALLS_GIT_BRANCH=$branch
   export TRAVIS_BRANCH=$branch
   echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
