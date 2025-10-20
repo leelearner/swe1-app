@@ -1,4 +1,4 @@
 black
 flake8
 coverage
-coveralls
+coveralls==4.0.1
