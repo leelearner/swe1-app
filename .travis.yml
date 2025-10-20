@@ -11,7 +11,15 @@ script:
 - flake8 .
 - coverage run --source=ebdjango,polls manage.py test
 after_success:
-- coveralls
+- |
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    branch=$TRAVIS_BRANCH
+  else
+    branch=$TRAVIS_PULL_REQUEST_BRANCH
+  fi
+  echo "Detected branch for Coveralls: $branch"
+  export COVERALLS_GIT_BRANCH=$branch
+  coveralls
 deploy:
   provider: elasticbeanstalk
   access_key_id:
