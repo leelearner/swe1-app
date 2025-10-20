@@ -1,31 +1,24 @@
 language: python
-
 python:
-  - "3.13"
-  
+- '3.13'
 install:
-  - pip install -r requirements.txt
-  - pip install -r requirements-dev.txt
-
+- pip install -r requirements.txt
+- pip install -r requirements-dev.txt
 before_script:
-  - python manage.py migrate
-  
+- python manage.py migrate
 script:
-  - black --check .
-  - flake8 .
-  - coverage run --source=ebdjango,polls manage.py test
-
+- black --check .
+- flake8 .
+- coverage run --source=ebdjango,polls manage.py test
 after_success:
-  - coveralls
-
+- coveralls
 deploy:
   provider: elasticbeanstalk
   access_key_id:
-    secure: "T39p1Jmejlug1vjg/fMxlopVxWkSzTMNVb3JIxQkrMohFlhjACkRThG7gYzjev15wz8bEjlTaVOjMBGAfNrEzZCTkfVhwyLEVDLGAm5MtyeGF/mgMAf3iVd7824Bl3lv8404YKhhgWIquME2vPscpjkkk0l3YNxDj8fEQBcO5+ZupNL/gpVv4s9oOywEkWkfO0i78SYpt3UUD1Ezmh1ge9C/i6xpgUGJdiC5Hp89keOMxEFQW5hMd4WpHJ0BUXffPE5RiDkBUAcJaMzad8DSQaHgYaTh2XoFRYMOiCLrrM3I4fSJ4y5y1fP24VPNKSzUxRfIvrcbWc8gM5HwnB9J128X0pu7T8kpwPt6lmJWn0rwf1J7C/q3bQ/JI4nXNhQsIoBy3Aig5ru4gO9lYoCOC66VncKZjyfYJzXk86buZbxoHtZw3XIZyWCSbgkysrkH0jgzosnZfFrKyRjf5mwtsRsrSTbFLzMxI2RhCh0P+gJwvm/n4yk+/zrgcDIYY8kiyLz7/ap38sqfwtpIzFykXbknYgHe5Y/tuZ53GNKzwzZZZbvThxXfpiXk9tPG+wGMDEqVis3ob6x7PHuafmPc2/jEgNPSZwg8xljezj9Dcd3CW98kmTXhodd+xAvycGGuYp6mp0u2NULCN+2xb02kfUqeim81kFkEPJ4qJZ6G/H4="
+    secure: SYxAJuD9X9olatfNvfQ5qAZJeYeZSW2sWNaWVNUPZ4MNlLrJu+2VuR1THGDWKB9oH18/Lj3sOKsmSebIlQON9fJMENcejZRk/FrCi+NHZYDUNlLI96cvBXWHwGLq6jh8rmlx8vURq9hE7sO84reRiTFJiUHZ+z8gjDoeeaNvIaVMSJ6LHcVpH+xDsl7EJOFd8X6pdTcNO5XQvjc80aTE4FkFqK/CNJ0QDM+tksPSeiusK50vL3vBKtR+3/2jgfuCu04JBT3uMNCPnxw534Bnlbu6meWn6dtRS+sKOJOHsoX7mI/LXgQx6D3VjHBH4yVOHXDciVSIh3M8Z2NTSVOnnE5JS87M6EBAOpHSpmyB7iyVwoOCF1h9GOlECzEtAe826pGuxwbIM8KJL4xB2eyt+fxzjFdnqa1kXkLvGMpuBZ34xjGfy1B+A30CUI897qTtoTirBc9Q8UJhmKsmScPi9oT/qyKS+Xpm8+0lwM10I1gjwXVP2o6LIwoLpN/wOczTJq9AGvccAM6yM93YM6BdFaKLZoOR5/UUmEtimaRV+cxI4FwpuXmF54rPSpxSVRjBtiOm6ndhnp8dDsNuoNEp9KMQWv3cR19g4nTAoZkb1T1+L7JaskoDQNrrS/vIGHOZCXc2lF5aGA8e0fH0lkryIpKX9JOgMxQSZ49KL8N+b4A=
   secret_access_key:
-    secure: "V9OpRAIqajbq5NbKM7qHgjwRsvwMPsTlDECu8k1HRJw3Qw3wpLFiL1wqG3DIljUpI5ABdJN4Hhnqv8Gz7gZ1Kubt/cKaHT1tQrCmYn3qmQR1t7VCaYY8wk5k61GumaxO88sbKP6B7IH2s1pB2/7dzofb/p7kHECIjLKOrHT+PFlgEzVGEgYSF/PZbB0o4F/7GZbK8ntHYr4wHOWInfVzPgkztzQ0F5bSxjApEh2MPrWbmePaWnB/Ler0kdT57WVGO5U48chAM3M2dgaNMphdxCsZoXwTqhtHg32yCJ7BiWWTG1qC+Po8kSisr/QgliJJ9jMWP6p4HfrmmE0ssPEnGqWs0CUC8T+IDs7q3yLOjgspDncqGKXwKf43MUSknQgTTbO/e6OyonG/IWU8aqLiO+mCZC8PFjl1d2HBb/QrLYO3V+8No3KAcHes1ffkQ85aZlRdrZUoSugeoeMaf+AA/JiTsXdQOgPmYwl0nm5XMhyt6ngkE+nbW3IBVcjjsHJiQwgOHCk08+kXaZsVJMXvVrvYChzBf/IQTHUDhNVhvqkMRxnXvIi4OVQYdjfh8vvAA6SJpm2ZjLDX2rB7jTsRJOo8i3oLiNU6L2SScPWysf2dMDKLY8DnanVadlH3/DyenR9Ykj90W+D0sdGHaVboZG3923BiD7BSXNBZQF35if8="
-  region: "us-west-2"
-  app: "ebdjango"
-  env: "django-env"
-  bucket_name: "elasticbeanstalk-us-west-2-883450714509"
-  debug: true
+    secure: ekiLYv9MgFAX50935HgvHkuMlaP0otwSX1S75rZ408WK5W5NeDUp2O3JaNVfKKCBkw/AuG2DvQfVfCewmSGdOmBVTd4BMCtohAFGoANmaGx1rnlRbRxLANosj+Iiv6y+DFmbyPymPA/fVqrCWW0RK/P0kiGHD9ZrCjR3hqiy9od5nG5lbpdTW6iq6Kfs/mMkC03Ty45knKvVhl17tcgdeJJDfzEbCMqqgBXR87Ix7VxBI0EKNXHKduZrFWsOXFKYcxRk7F1U7ZSsg2+q1nZTVzGPCZYOXAvYBRe3kZwRBcXHKmw+K7krArCTrfqge24jWZhvQszMAYInJrYbaP5EM2tDsOiXODr3kQ0vyFhaEZnveJ+WDaYsVnAVxt3V0F5c/MMV/m46NcTopG5rz8xqbTOqd9XNQEshM/4aO02UDtm2D7re+HQdc+KGOgqgTrxcbNG9G4Hgm/F694iBeEMIlGGDepKspCItw2S9gEaXnV8QAOelVVNF7r94KctxLie/xEWv3c+Fuwu4n5dUVcIlEop2z9tk3LRuJDNhOH5BcUob+oGCh1lOpJOUTg5UWaxoqKqFOKgq6tzGVVOqIX0y/+RY2ah3j0PV8/4Oaa86PPBizbSUe9sojhqojJmKVMX6eXfa5vodp0zsV0aBk0ZCGBIbOQ0fpUWq4t+YJc30mYM=
+  region: us-west-2
+  app: ebdjango
+  env: django-env
+  bucket_name: elasticbeanstalk-us-west-2-883450714509
