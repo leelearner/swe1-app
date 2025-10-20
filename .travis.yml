@@ -11,7 +11,7 @@ script:
 - flake8 .
 - coverage run --source=ebdjango,polls manage.py test
 after_success:
-- coveralls --branch=$TRAVIS_BRANCH
+- coveralls
 deploy:
   provider: elasticbeanstalk
   access_key_id:
