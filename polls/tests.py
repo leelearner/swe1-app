@@ -19,6 +19,12 @@ def create_question(question_text, days):
 
 
 class QuestionModelTests(TestCase):
+    def test_Question_Choice_str(self):
+        question = create_question("Question", days=-1)
+        choice = question.choice_set.create(choice_text="choice", votes=0)
+        self.assertIs(str(question), question.question_text)
+        self.assertIs(str(choice), choice.choice_text)
+
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
@@ -125,3 +131,49 @@ class QuestionDetailViewTests(TestCase):
         url = reverse("polls:detail", args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+
+class VoteResultsViewTests(TestCase):
+    def test_future_question(self):
+        """
+        The result view of a question with a pub_date in the future
+        returns a 404 not found.
+        """
+        future_question = create_question(question_text="Future question.", days=5)
+        url = reverse("polls:results", args=(future_question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_past_question(self):
+        """
+        The result view of a question with a pub_date in the past
+        displays the quesion's vote result.
+        """
+        past_question = create_question(question_text="Past Question.", days=-5)
+        url = reverse("polls:results", args=(past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
+
+    def test_vote_with_valid_choice(self):
+        """
+        After voting for one choice, the votes should increase 1
+        and return to the frontend.
+        """
+        question = create_question(question_text="Question", days=-1)
+        choice = question.choice_set.create(choice_text="choice1", votes=0)
+        url = reverse("polls:vote", args=(question.id,))
+        response = self.client.post(url, {"choice": choice.id})
+
+        choice.refresh_from_db()
+        self.assertEqual(choice.votes, 1)
+        self.assertRedirects(response, reverse("polls:results", args=(question.id,)))
+
+    def test_vote_with_no_choice(self):
+        question = create_question("Question", days=-1)
+        question.choice_set.create(choice_text="Pizza", votes=0)
+
+        url = reverse("polls:vote", args=(question.id,))
+        response = self.client.post(url, {})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "You did not select a choice.")
