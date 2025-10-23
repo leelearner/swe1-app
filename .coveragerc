@@ -1,0 +1,9 @@
+[run]
+omit =
+  */migrations/*
+  */tests/*
+  */__init__.py
+  manage.py
+  ebdjango/asgi.py
+  ebdjango/wsgi.py
+  ebdjango/settings.py
