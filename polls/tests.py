@@ -19,6 +19,12 @@ def create_question(question_text, days):
 
 
 class QuestionModelTests(TestCase):
+    def test_Question_Choice_str(self):
+        question = create_question("Question", days=-1)
+        choice = question.choice_set.create(choice_text="choice", votes=0)
+        self.assertIs(str(question), question.question_text)
+        self.assertIs(str(choice), choice.choice_text)
+
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
