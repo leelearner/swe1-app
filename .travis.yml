@@ -14,12 +14,9 @@ after_success:
 - coveralls
 deploy:
   provider: elasticbeanstalk
-  access_key_id: AWS_ACCESS_KEY_ID
-  secret_access_key: AWS_SECRET_ACCESS_KEY
-  region: us-west-2
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: "us-west-2"
   app: ebdjango
   env: django-env
-  bucket_name: elasticbeanstalk-us-west-2-883450714509
-env:
-  global:
-    secure: L4OmEtD/vm4t9ILOrN7FIoPedWOr6aT58m/lYdkzzld6ZxMEK/nOJqOgPTYrvw3DKbqmo7d7lhZGKC6qfnfWhn9FQVDxlHLZxm/Kq+cuBM1Uuo1fSDQUKoniolUO0Nklm0zc/cHu+sp98X+dvw5VA05o4HQe8V2BEYBev5AQTCoKi0tKsQoASUM3fZigHfri12+Uu4XII/RY+M3Zq4PO6n0UgDiWMM12xNN/yMrlAHzV+1mbFJ681ucNLt3y6Gjl49UJ5B/R1l0jqooZUeocPe4Tcx3yBvauyTIiZ3Z2rgqvo3KSMtHGeqmwarRtTTxo45W3zrBXr7cBrNS99+eIzWjmE05gm/q0mIZfHHg+vLTXsjYO4oXtvror4sMs9OmQ8S/xuSNA83/FpxWhhcdz8kEyMIWRa7f/O+LZjVedKrPx1QIELIpNt5gOddfiVhrU5AYM2x/NY+P5CxxWJnPX8sxUzfASFxAQIqqOM2phiqvEhN8ts3xFcXvFzemsWdrw5YyuOVYhigcP5d+DbdZ+/pubxSQpZW7YDKgXE4eumH9wGF7QnPTFp5ApNPTiYGmKrU1kKIYrJ48kSPQhOIVDZrLh+8/ZgooTPOVtDY96aiWkSn8f156Yxl7tvZceCSGrc7FbmsNdFVckTsZDQ6XYe+LylyxDhfx074zuYW6wXUQ=
+  bucket_name: "elasticbeanstalk-us-west-2-883450714509"
