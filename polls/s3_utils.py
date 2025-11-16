@@ -53,7 +53,7 @@ def upload_file_to_s3(
         s3_client = get_s3_client()
 
         # Generate unique filename to avoid collisions
-        file_extension = filename.split(".")[-1] if "." in filename else ""
+        # file_extension = filename.split(".")[-1] if "." in filename else ""
         unique_filename = f"{uuid.uuid4().hex}_{filename}"
 
         # Prepare upload parameters
